@@ -4,6 +4,6 @@
 - 调用数据库：gorm
 - json web token : jwt-go
 - 配置文件加载：viper
-- 密码采用crypto库bcrypt包进行加密
+- 密码采用crypto库bcrypt包加密
 
 MVC结构

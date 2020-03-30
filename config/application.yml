@@ -1,10 +1,11 @@
 server:
-  port: 8080
+  port: 8081
 datasource:
   driverName: mysql
   host: 127.0.0.1
   port: 3306
-  database: LearnAuth
+  databaseUser: LearnAuth
+  database: myList
   username: root
   password: sqldb
   charset: utf8mb4

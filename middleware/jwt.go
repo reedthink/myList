@@ -27,13 +27,14 @@ func ReleaseToken(user model.User) (string, error) {
 			Subject:   "user token",
 		},
 	}
-	token:=jwt.NewWithClaims(jwt.SigningMethodHS256,claims)
-	tokenString,err:=token.SignedString(jwtKey)
-	if err!=nil{
-		return "",err
+	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
+	tokenString, err := token.SignedString(jwtKey)
+	if err != nil {
+		return "", err
 	}
-	return tokenString,nil
+	return tokenString, nil
 }
+
 /*
 解码命令 echo eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 | base64 -d
 
@@ -42,14 +43,15 @@ eyJVc2VySWQiOjEwLCJleHAiOjE1ODUzOTUxOTQsImlhdCI6MTU4NDc5MDM5NCwiaXNzIjoiaGhoIiwi
 zvyhKkYoaghwDnDh3UoPa_d2k3e7bhb_cvidSl41h7U
 */
 
-func ParseToken(tokenString string)(*jwt.Token,*Claims ,error){
-	claims:=&Claims{}
+func ParseToken(tokenString string) (*jwt.Token, *Claims, error) {
+	claims := &Claims{}
 
-	token,err:=jwt.ParseWithClaims(tokenString,claims,func(token * jwt.Token)(i interface{},err error){
-		return jwtKey,nil
+	token, err := jwt.ParseWithClaims(tokenString, claims, func(token *jwt.Token) (i interface{}, err error) {
+		return jwtKey, nil
 	})
-	return token,claims,err
+	return token, claims, err
 }
+
 //claim
 //n.索赔；宣称；声明；断言
 //v.声称；宣称；认领；索取

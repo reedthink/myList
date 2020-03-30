@@ -1,8 +1,7 @@
 package main
 
 import (
-	"auth/controller"
-	"auth/middleware"
+	"log"
 	"os"
 
 	"auth/dao"
@@ -14,15 +13,12 @@ import (
 
 func main() {
 	InitConfig()
-	db := dao.InitDB() //初始化数据库 
+	db := dao.InitDB() //初始化数据库
 	defer db.Close()   //记得关闭
 
 	r := gin.Default() //新建路由引擎
 
-	r.POST("/api/auth/register", controller.Register)
-	r.POST("/api/auth/login", controller.Login)
-	r.GET("/api/auth/info", middleware.AuthMiddleware(), controller.Info)
-
+	r = CollectRouter(r)
 	port := viper.GetString("server.port")
 	if port != "" {
 		panic(r.Run(":" + port))
@@ -37,6 +33,6 @@ func InitConfig() {
 	viper.AddConfigPath(workDir + "/config")
 	err := viper.ReadInConfig()
 	if err != nil {
-
+		log.Printf("没找到配置文件")
 	}
 }

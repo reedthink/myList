@@ -5,6 +5,7 @@ import (
 	"auth/dto"
 	"auth/middleware"
 	"auth/response"
+	//"encoding/json"
 	"log"
 	"net/http"
 
@@ -19,11 +20,12 @@ import (
 //Register  注册函数
 func Register(c *gin.Context) {
 	db := dao.GetDB()
-
 	//获取参数
-	name := c.PostForm("name")
-	email := c.PostForm("email")
-	password := c.PostForm("password")
+	var requestUser model.User
+	c.Bind(&requestUser)
+	name := requestUser.Name
+	email := requestUser.Email
+	password := requestUser.Password
 
 	if len(password) < 6 {
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "密码不能小于6位")
@@ -52,15 +54,18 @@ func Register(c *gin.Context) {
 			Password: string(hashedPassword),
 		}
 		db.Create(&newUser)
-		response.Response(c, http.StatusOK, 200, nil, "注册成功")
+		token, _:= middleware.ReleaseToken(newUser)
+		response.Response(c, http.StatusOK, 200, gin.H{"token": token}, "注册成功")
 	}
 }
 
 func Login(c *gin.Context) {
 	DB := dao.GetDB()
 	//获取参数
-	email := c.PostForm("email")
-	password := c.PostForm("password")
+	var requestUser = model.User{}
+	c.Bind(&requestUser)
+	email := requestUser.Email
+	password := requestUser.Password
 	//数据验证
 	if len(password) < 6 {
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "密码不能小于6位")
@@ -92,7 +97,7 @@ func Login(c *gin.Context) {
 
 func Info(c *gin.Context) {
 	user, _ := c.Get("user")
-	c.JSON(http.StatusOK,gin.H{"code":200,"data":gin.H{
-		"user":dto.ToUserDto(user.(model.User)),//user是一个接口
+	c.JSON(http.StatusOK, gin.H{"code": 200, "data": gin.H{
+		"user": dto.ToUserDto(user.(model.User)), //user是一个接口
 	}})
 }
