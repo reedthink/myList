@@ -16,7 +16,7 @@ func InitDB() *gorm.DB {
 	driverName := viper.GetString("datasource.driverName") //viper是自动读取制定文件的吗？
 	host := viper.GetString("datasource.host")
 	port := viper.GetString("datasource.port")
-	database := viper.GetString("datasource.databaseUser")
+	database := viper.GetString("datasource.database")
 	username := viper.GetString("datasource.username")
 	password := viper.GetString("datasource.password")
 	charset := viper.GetString("datasource.charset")

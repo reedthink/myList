@@ -1,7 +1,7 @@
 package models
 
 import (
-	"auth/tododao"
+	"auth/dao"
 )
 
 //Todo model
@@ -9,9 +9,7 @@ type Todo struct {
 	ID int `json:"id"`
 	Title string `json:"title"`
 	Status bool `json:"status"`
-
 }
-
 /*
 Todo 增删改查
 这个model的增删查改操作都放这里

@@ -28,11 +28,12 @@ func Register(c *gin.Context) {
 	password := requestUser.Password
 
 	if len(password) < 6 {
+		//log.Printf("邮箱%v.密码:%v嘿嘿",email, password)
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "密码不能小于6位")
 		return
 	}
 	if len(name) == 0 {
-		name = "HanPi"
+		name = "HanPPP"
 	}
 
 	log.Println(name, email, password)
@@ -68,6 +69,8 @@ func Login(c *gin.Context) {
 	password := requestUser.Password
 	//数据验证
 	if len(password) < 6 {
+		//log.Printf("邮箱%v.密码:%v嘿嘿",email, password)
+
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "密码不能小于6位")
 		return
 	}
@@ -76,10 +79,14 @@ func Login(c *gin.Context) {
 	DB.Where("email = ?", email).First(&user)
 	if user.ID == 0 {
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "用户不存在")
+		log.Printf("%v   密码: %v",email, password)
+
 		return
 	}
 	//判断密码是否正确
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
+		//log.Printf("邮箱%v.密码:%v嘿嘿",email, password)
+
 		response.Response(c, http.StatusBadRequest, 400, nil, "密码错误")
 		return
 	}

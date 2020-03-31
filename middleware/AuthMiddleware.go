@@ -14,6 +14,8 @@ func AuthMiddleware() gin.HandlerFunc {
 		//获取authorization header
 
 		tokenString := c.GetHeader("authorization")
+		log.Printf("%v gg.",tokenString)
+
 		log.Println(tokenString)
 		//验证格式
 		if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
