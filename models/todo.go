@@ -1,7 +1,7 @@
 package models
 
 import (
-	"auth/tododao"
+	"auth/dao"
 )
 
 //Todo model
@@ -9,9 +9,7 @@ type Todo struct {
 	ID int `json:"id"`
 	Title string `json:"title"`
 	Status bool `json:"status"`
-
 }
-
 /*
 Todo 增删改查
 这个model的增删查改操作都放这里
@@ -22,7 +20,7 @@ func CreateATodo(todo *Todo)(err error){
 	err=dao.DB.Create(&todo).Error;
 	return
 }
-
+//GetTodoList 查询单个用户所有todo
 func GetTodoList()(todoList []*Todo,err error){
 	err=dao.DB.Find(&todoList).Error
 	if err!=nil{
@@ -31,7 +29,7 @@ func GetTodoList()(todoList []*Todo,err error){
 	return
 
 }
-
+//GetATodo 查询单个用户指定的todo
 func GetATodo(id string)(*Todo,error){
 	todo := new(Todo)
 	err := dao.DB.Where("id=?",id).First(todo).Error

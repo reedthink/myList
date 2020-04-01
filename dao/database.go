@@ -9,14 +9,14 @@ import (
 
 	"github.com/jinzhu/gorm"
 )
-
+//dao层负责数据库连接并且绑定
 var DB *gorm.DB
 
 func InitDB() *gorm.DB {
 	driverName := viper.GetString("datasource.driverName") //viper是自动读取制定文件的吗？
 	host := viper.GetString("datasource.host")
 	port := viper.GetString("datasource.port")
-	database := viper.GetString("datasource.databaseUser")
+	database := viper.GetString("datasource.database")
 	username := viper.GetString("datasource.username")
 	password := viper.GetString("datasource.password")
 	charset := viper.GetString("datasource.charset")
@@ -32,7 +32,7 @@ func InitDB() *gorm.DB {
 	if err != nil {
 		panic("连接数据库失败！" + err.Error())
 	}
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.User{})//自动绑定
 	DB = db
 	return db
 }

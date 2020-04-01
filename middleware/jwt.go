@@ -35,14 +35,6 @@ func ReleaseToken(user model.User) (string, error) {
 	return tokenString, nil
 }
 
-/*
-解码命令 echo eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 | base64 -d
-
-eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
-eyJVc2VySWQiOjEwLCJleHAiOjE1ODUzOTUxOTQsImlhdCI6MTU4NDc5MDM5NCwiaXNzIjoiaGhoIiwic3ViIjoidXNlciB0b2tlbiJ9.
-zvyhKkYoaghwDnDh3UoPa_d2k3e7bhb_cvidSl41h7U
-*/
-
 func ParseToken(tokenString string) (*jwt.Token, *Claims, error) {
 	claims := &Claims{}
 
@@ -53,5 +45,13 @@ func ParseToken(tokenString string) (*jwt.Token, *Claims, error) {
 }
 
 //claim
-//n.索赔；宣称；声明；断言
+//n.索赔；声明；断言
 //v.声称；宣称；认领；索取
+
+/*
+解码命令 echo eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9 | base64 -d
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.
+eyJVc2VySWQiOjEwLCJleHAiOjE1ODUzOTUxOTQsImlhdCI6MTU4NDc5MDM5NCwiaXNzIjoiaGhoIiwic3ViIjoidXNlciB0b2tlbiJ9.
+zvyhKkYoaghwDnDh3UoPa_d2k3e7bhb_cvidSl41h7U
+*/

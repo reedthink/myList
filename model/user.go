@@ -9,3 +9,5 @@ type User struct {
 	Email    string `gorm:"type:varchar(100);unique_index"`//邮箱长度100,为该列设置唯一索引
 	Password string `gorm:"size:255;not null"`
 }
+//表名（Table Name）
+//表名默认就是结构体名称的复数
