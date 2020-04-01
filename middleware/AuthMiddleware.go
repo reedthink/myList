@@ -12,10 +12,8 @@ import (
 func AuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		//获取authorization header
-
 		tokenString := c.GetHeader("authorization")
-		log.Printf("%v gg.",tokenString)
-
+		//打印token到日志
 		log.Println(tokenString)
 		//验证格式
 		if tokenString == "" || !strings.HasPrefix(tokenString, "Bearer ") {
@@ -40,7 +38,10 @@ func AuthMiddleware() gin.HandlerFunc {
 		userId:=claims.UserId
 		DB:=dao.GetDB()
 		var user model.User
+		// 根据主键查询第一条记录
+		// SELECT * FROM users ORDER BY id LIMIT 1;
 		DB.First(&user,userId)
+
 		//用户不存在
 		if user.ID==0{
 			c.JSON(http.StatusUnauthorized, gin.H{

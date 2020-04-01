@@ -20,7 +20,7 @@ func CreateATodo(todo *Todo)(err error){
 	err=dao.DB.Create(&todo).Error;
 	return
 }
-
+//GetTodoList 查询单个用户所有todo
 func GetTodoList()(todoList []*Todo,err error){
 	err=dao.DB.Find(&todoList).Error
 	if err!=nil{
@@ -29,7 +29,7 @@ func GetTodoList()(todoList []*Todo,err error){
 	return
 
 }
-
+//GetATodo 查询单个用户指定的todo
 func GetATodo(id string)(*Todo,error){
 	todo := new(Todo)
 	err := dao.DB.Where("id=?",id).First(todo).Error

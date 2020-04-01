@@ -9,7 +9,7 @@ import (
 
 	"github.com/jinzhu/gorm"
 )
-
+//dao层负责数据库连接并且绑定
 var DB *gorm.DB
 
 func InitDB() *gorm.DB {
@@ -32,7 +32,7 @@ func InitDB() *gorm.DB {
 	if err != nil {
 		panic("连接数据库失败！" + err.Error())
 	}
-	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.User{})//自动绑定
 	DB = db
 	return db
 }

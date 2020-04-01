@@ -21,7 +21,7 @@ func CollectRouter(r *gin.Engine) *gin.Engine {
 	//r.Use(middleware.AuthMiddleware())
 	r.GET("/list", controller.IndexHandler)
 	//API v1
-	v1Group := r.Group("/api/auth")
+	v1Group := r.Group("v1")
 	{
 		//todo list
 		//添加

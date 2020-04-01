@@ -5,6 +5,7 @@ import (
 	"auth/dto"
 	"auth/middleware"
 	"auth/response"
+
 	//"encoding/json"
 	"log"
 	"net/http"
@@ -22,7 +23,8 @@ func Register(c *gin.Context) {
 	db := dao.GetDB()
 	//获取参数
 	var requestUser model.User
-	c.Bind(&requestUser)
+	// Bind()默认解析并绑定form格式,而且它会根据请求头中content-type自动推断
+	c.Bind(&requestUser) //绑定上下文的json到后端的User类型
 	name := requestUser.Name
 	email := requestUser.Email
 	password := requestUser.Password
@@ -35,7 +37,6 @@ func Register(c *gin.Context) {
 	if len(name) == 0 {
 		name = "HanPPP"
 	}
-
 	log.Println(name, email, password)
 	//判断邮箱是否存在
 	if util.IsEmailExist(db, email) {
@@ -46,7 +47,6 @@ func Register(c *gin.Context) {
 
 		if err != nil {
 			response.Response(c, http.StatusInternalServerError, 500, nil, "加密失败")
-
 			return
 		}
 		newUser := model.User{
@@ -54,8 +54,8 @@ func Register(c *gin.Context) {
 			Email:    email,
 			Password: string(hashedPassword),
 		}
-		db.Create(&newUser)
-		token, _:= middleware.ReleaseToken(newUser)
+		db.Create(&newUser) //INSERT INTO users("age") values('99');
+		token, _ := middleware.ReleaseToken(newUser)
 		response.Response(c, http.StatusOK, 200, gin.H{"token": token}, "注册成功")
 	}
 }
@@ -69,9 +69,8 @@ func Login(c *gin.Context) {
 	password := requestUser.Password
 	//数据验证
 	if len(password) < 6 {
-		//log.Printf("邮箱%v.密码:%v嘿嘿",email, password)
-
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "密码不能小于6位")
+		//虽然前端校验过长度，但是不能“相信”前端的数据，故再次进行校验
 		return
 	}
 	//判断邮箱是否存在
@@ -79,14 +78,10 @@ func Login(c *gin.Context) {
 	DB.Where("email = ?", email).First(&user)
 	if user.ID == 0 {
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "用户不存在")
-		log.Printf("%v   密码: %v",email, password)
-
 		return
 	}
 	//判断密码是否正确
 	if err := bcrypt.CompareHashAndPassword([]byte(user.Password), []byte(password)); err != nil {
-		//log.Printf("邮箱%v.密码:%v嘿嘿",email, password)
-
 		response.Response(c, http.StatusBadRequest, 400, nil, "密码错误")
 		return
 	}
@@ -108,3 +103,21 @@ func Info(c *gin.Context) {
 		"user": dto.ToUserDto(user.(model.User)), //user是一个接口
 	}})
 }
+/*
+dto里的函数
+package dto
+
+import "auth/model"
+
+type UserDto struct {
+	Name  string `json:"name"`
+	Email string `json:"email"`
+}
+
+func ToUserDto(user model.User) UserDto {
+	return UserDto{
+		Name:  user.Name,
+		Email: user.Email,
+	}
+}
+*/
