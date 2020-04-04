@@ -2,15 +2,19 @@ package main
 
 import (
 	"fmt"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"myList/controller"
+	_ "myList/docs"
 	"myList/middleware"
 	"time"
 
 	"github.com/gin-gonic/gin"
+	"github.com/swaggo/gin-swagger/swaggerFiles"
 )
 
 func CollectRouter(r *gin.Engine) *gin.Engine {
 	r.Use(middleware.CORSMiddleware())
+	r.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	r.POST("/api/auth/register", controller.Register)
 	r.POST("/api/auth/login", controller.Login)
 	r.GET("/api/auth/info", middleware.AuthMiddleware(), controller.Info)
@@ -20,7 +24,7 @@ func CollectRouter(r *gin.Engine) *gin.Engine {
 	r.Use(middleware.AuthMiddleware())
 	//API v1
 	v1Group := r.Group("v1")
-	{ 	//少见的换行花括号
+	{ //少见的换行花括号
 		//todoList
 		//添加
 		v1Group.POST("/todo", controller.CreateATodo)

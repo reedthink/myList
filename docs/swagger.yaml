@@ -1,0 +1,41 @@
+info:
+  contact: {}
+  description: 一个todo清单后端，支持多用户注册，登录，每个用户有独立的清单
+  license: {}
+  title: myList API
+  version: "0.1"
+paths:
+  /api/auth/info:
+    get:
+      produces:
+      - application/json
+      summary: 查看账户信息
+  /api/auth/login:
+    post:
+      produces:
+      - application/json
+      summary: 登录
+  /api/auth/register:
+    post:
+      produces:
+      - application/json
+      summary: 注册
+  /v1/todo:
+    get:
+      produces:
+      - application/json
+      summary: 获取待办事项列表
+    post:
+      produces:
+      - application/json
+      summary: 新增一个待办事项
+  /v1/todo/{id}:
+    delete:
+      produces:
+      - application/json
+      summary: 删除一个待办事项
+    put:
+      produces:
+      - application/json
+      summary: 更改指定待办事项状态
+swagger: "2.0"

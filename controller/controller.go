@@ -10,12 +10,9 @@ import (
 func IndexHandler(c *gin.Context) {
 	c.HTML(http.StatusOK, "index.html", nil)
 }
-//func Info(c *gin.Context) {
-//	user, _ := c.Get("user")
-//	c.JSON(http.StatusOK, gin.H{"code": 200, "data": gin.H{
-//		"user": dto.ToUserDto(user.(model.User)), //user是一个接口
-//	}})
-//}
+// @Summary 新增一个待办事项
+// @Produce  json
+// @Router /v1/todo [post]
 func CreateATodo(c *gin.Context) {
 	user, _ := c.Get("user")
 	email := user.(model.User).Email
@@ -38,7 +35,9 @@ func CreateATodo(c *gin.Context) {
 	}
 }
 
-//查询todo数据表
+// @Summary 获取待办事项列表
+// @Produce  json
+// @Router /v1/todo [get]
 func GetTodoList(c *gin.Context) {
 	user, _ := c.Get("user")
 	email := user.(model.User).Email
@@ -52,7 +51,9 @@ func GetTodoList(c *gin.Context) {
 	}
 
 }
-
+// @Summary 更改指定待办事项状态
+// @Produce  json
+// @Router /v1/todo/{id} [put]
 func UpdateATodo(c *gin.Context) {
 	id, ok := c.Params.Get("id")
 	if !ok {
@@ -75,8 +76,10 @@ func UpdateATodo(c *gin.Context) {
 	} else {
 		c.JSON(http.StatusOK, todo)
 	}
-
 }
+// @Summary 删除一个待办事项
+// @Produce  json
+// @Router /v1/todo/{id} [delete]
 func DeleteATodo(c *gin.Context) {
 	id, ok := c.Params.Get("id")
 	if !ok {

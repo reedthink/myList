@@ -9,7 +9,9 @@ import (
 	"github.com/spf13/viper"
 	"myList/dao"
 )
-
+// @title myList API
+// @version 0.1
+// @description 一个todo清单后端，支持多用户注册，登录，每个用户有独立的清单
 func main() {
 	InitConfig()
 	db := dao.InitDB() //初始化数据库

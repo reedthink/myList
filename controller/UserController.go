@@ -16,7 +16,9 @@ import (
 	"myList/util"
 )
 
-//Register  注册函数
+// @Summary 注册
+// @Produce  json
+// @Router /api/auth/register [post]
 func Register(c *gin.Context) {
 	db := dao.GetDB()
 	//获取参数
@@ -55,7 +57,9 @@ func Register(c *gin.Context) {
 		response.Response(c, http.StatusOK, 200, gin.H{"token": token}, "注册成功")
 	}
 }
-
+// @Summary 登录
+// @Produce  json
+// @Router /api/auth/login [post]
 func Login(c *gin.Context) {
 	DB := dao.GetDB()
 	//获取参数
@@ -92,7 +96,9 @@ func Login(c *gin.Context) {
 	//返回结果
 	response.Success(c, gin.H{"token": token}, "登录成功")
 }
-
+// @Summary  查看账户信息
+// @Produce  json
+// @Router /api/auth/info [get]
 func Info(c *gin.Context) {
 	user, _ := c.Get("user")
 	c.JSON(http.StatusOK, gin.H{"code": 200, "data": gin.H{
