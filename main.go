@@ -16,7 +16,7 @@ func main() {
 	defer db.Close()   //记得关闭
 
 	r := gin.Default() //新建路由引擎
-	r = CollectRouter(r)
+	r = CollectRouter(r) //路由组
 
 	port := viper.GetString("server.port")
 	if port != "" {
