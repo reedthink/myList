@@ -1,21 +1,19 @@
 package controller
 
 import (
+	"log"
+	"net/http"
+	//"encoding/json"
+
+	"github.com/gin-gonic/gin"
+	"golang.org/x/crypto/bcrypt"
+
 	"myList/dao"
 	"myList/dto"
 	"myList/middleware"
-	"myList/response"
-
-	//"encoding/json"
-	"log"
-	"net/http"
-
-	"golang.org/x/crypto/bcrypt"
-
 	"myList/model"
+	"myList/response"
 	"myList/util"
-
-	"github.com/gin-gonic/gin"
 )
 
 //Register  注册函数
@@ -28,7 +26,6 @@ func Register(c *gin.Context) {
 	name := requestUser.Name
 	email := requestUser.Email
 	password := requestUser.Password
-
 	if len(password) < 6 {
 		//log.Printf("邮箱%v.密码:%v嘿嘿",email, password)
 		response.Response(c, http.StatusUnprocessableEntity, 422, nil, "密码不能小于6位")
@@ -44,7 +41,6 @@ func Register(c *gin.Context) {
 		return
 	} else {
 		hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), bcrypt.DefaultCost)
-
 		if err != nil {
 			response.Response(c, http.StatusInternalServerError, 500, nil, "加密失败")
 			return

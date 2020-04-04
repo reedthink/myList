@@ -4,10 +4,10 @@ import (
 	"log"
 	"os"
 
-	"myList/dao"
 	"github.com/gin-gonic/gin"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/spf13/viper"
+	"myList/dao"
 )
 
 func main() {
@@ -15,7 +15,7 @@ func main() {
 	db := dao.InitDB() //初始化数据库
 	defer db.Close()   //记得关闭
 
-	r := gin.Default() //新建路由引擎
+	r := gin.Default()   //新建路由引擎
 	r = CollectRouter(r) //路由组
 
 	port := viper.GetString("server.port")

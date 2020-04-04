@@ -1,10 +1,10 @@
 package middleware
 
 import (
-	"myList/dao"
-	"myList/model"
 	"github.com/gin-gonic/gin"
 	"log"
+	"myList/dao"
+	"myList/model"
 	"net/http"
 	"strings"
 )
@@ -35,15 +35,14 @@ func AuthMiddleware() gin.HandlerFunc {
 			return
 		}
 		//通过验证，获取userId
-		userId:=claims.UserId
-		DB:=dao.GetDB()
+		userId := claims.UserId
+		DB := dao.GetDB()
 		var user model.User
 		// 根据主键查询第一条记录
 		// SELECT * FROM users ORDER BY id LIMIT 1;
-		DB.First(&user,userId)
-
+		DB.First(&user, userId)
 		//用户不存在
-		if user.ID==0{
+		if user.ID == 0 {
 			c.JSON(http.StatusUnauthorized, gin.H{
 				"code": 401,
 				"msg":  "权限不足3",
@@ -51,10 +50,8 @@ func AuthMiddleware() gin.HandlerFunc {
 			c.Abort()
 			return
 		}
-
 		//用户存在,将user信息写入上下文
-		c.Set("user",user) //todo what?
-
+		c.Set("user", user) //todo what?
 		c.Next()
 	}
 }

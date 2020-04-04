@@ -1,9 +1,9 @@
 package main
 
 import (
+	"fmt"
 	"myList/controller"
 	"myList/middleware"
-	"fmt"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -17,13 +17,13 @@ func CollectRouter(r *gin.Engine) *gin.Engine {
 
 	r.Static("/static", "static") //指定样式文件地址
 	r.LoadHTMLGlob("templates/*") //指定静态文件位置
-	r.Use(m1)                     //全局注册中间件函数
-	//r.Use(middleware.AuthMiddleware())
+	r.Use(m1) //全局注册中间件函数
 	r.GET("/list", controller.IndexHandler)
+	r.Use(middleware.AuthMiddleware())
 	//API v1
 	v1Group := r.Group("v1")
-	{
-		//todo list
+	{ 	//少见的换行花括号
+		//todoList
 		//添加
 		v1Group.POST("/todo", controller.CreateATodo)
 		//查看所有待办事项

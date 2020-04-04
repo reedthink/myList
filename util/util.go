@@ -13,5 +13,4 @@ func IsEmailExist(db *gorm.DB, email string) bool {
 		return true
 	}
 	return false
-
 }
