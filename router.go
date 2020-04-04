@@ -15,8 +15,6 @@ func CollectRouter(r *gin.Engine) *gin.Engine {
 	r.POST("/api/auth/login", controller.Login)
 	r.GET("/api/auth/info", middleware.AuthMiddleware(), controller.Info)
 
-	r.Static("/static", "static") //指定样式文件地址
-	r.LoadHTMLGlob("templates/*") //指定静态文件位置
 	r.Use(m1) //全局注册中间件函数
 	r.GET("/list", controller.IndexHandler)
 	r.Use(middleware.AuthMiddleware())
