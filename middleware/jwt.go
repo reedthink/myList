@@ -1,7 +1,7 @@
 package middleware
 
 import (
-	"auth/model"
+	"myList/model"
 	"time"
 
 	"github.com/dgrijalva/jwt-go"

@@ -5,7 +5,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"auth/model"
+	"myList/model"
 
 	"github.com/jinzhu/gorm"
 )

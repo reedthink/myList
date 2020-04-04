@@ -1,4 +1,4 @@
-module auth
+module myList
 
 go 1.13
 

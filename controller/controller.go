@@ -2,7 +2,7 @@ package controller
 
 import (
 	"github.com/gin-gonic/gin"
-	"auth/models"
+	"myList/models"
 	"net/http"
 )
 

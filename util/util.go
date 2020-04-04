@@ -1,7 +1,7 @@
 package util
 
 import (
-	"auth/model"
+	"myList/model"
 
 	"github.com/jinzhu/gorm"
 )

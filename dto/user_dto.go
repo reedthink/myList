@@ -1,6 +1,6 @@
 package dto
 
-import "auth/model"
+import "myList/model"
 
 type UserDto struct {
 	Name  string `json:"name"`

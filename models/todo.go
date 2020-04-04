@@ -1,7 +1,7 @@
 package models
 
 import (
-	"auth/dao"
+	"myList/dao"
 )
 
 //Todo model

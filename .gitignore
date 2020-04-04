@@ -2,3 +2,5 @@
 auth
 go_build_auth
 go_build_auth_by_goland
+myList
+go_build_myList_by_goland

@@ -1,8 +1,8 @@
 package middleware
 
 import (
-	"auth/dao"
-	"auth/model"
+	"myList/dao"
+	"myList/model"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"

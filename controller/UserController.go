@@ -1,10 +1,10 @@
 package controller
 
 import (
-	"auth/dao"
-	"auth/dto"
-	"auth/middleware"
-	"auth/response"
+	"myList/dao"
+	"myList/dto"
+	"myList/middleware"
+	"myList/response"
 
 	//"encoding/json"
 	"log"
@@ -12,8 +12,8 @@ import (
 
 	"golang.org/x/crypto/bcrypt"
 
-	"auth/model"
-	"auth/util"
+	"myList/model"
+	"myList/util"
 
 	"github.com/gin-gonic/gin"
 )
@@ -107,7 +107,7 @@ func Info(c *gin.Context) {
 dto里的函数
 package dto
 
-import "auth/model"
+import "myList/model"
 
 type UserDto struct {
 	Name  string `json:"name"`

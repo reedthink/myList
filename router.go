@@ -1,8 +1,8 @@
 package main
 
 import (
-	"auth/controller"
-	"auth/middleware"
+	"myList/controller"
+	"myList/middleware"
 	"fmt"
 	"time"
 
