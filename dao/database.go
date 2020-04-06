@@ -32,7 +32,7 @@ func InitDB() *gorm.DB {
 	if err != nil {
 		panic("连接数据库失败！" + err.Error())
 	}
-	db.AutoMigrate(&model.User{},&model.Todo{}) //自动绑定
+	db.AutoMigrate(&model.User{}, &model.Todo{}) //自动绑定
 	/*gorm中的Automigrate()操作，其作用主要是刷新数据库中的表格，使其保持最新，即让数据库之前存储的记录的表格字段和程序中最新使用的表格字段保持一致（只增不减）。*/
 	DB = db
 	return db
