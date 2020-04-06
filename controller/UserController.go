@@ -54,6 +54,7 @@ func Register(c *gin.Context) {
 		}
 		db.Create(&newUser) //INSERT INTO users("age") values('99');
 		token, _ := middleware.ReleaseToken(newUser)
+		util.RegisterEmail(newUser);
 		response.Response(c, http.StatusOK, 200, gin.H{"token": token}, "注册成功")
 	}
 }
