@@ -27,7 +27,7 @@ func SendRegisterEmail(address string, body string) error {
 
 		"user": "a1337233082@163.com",
 
-		"pass": "mxgJG3vPG4MirJh",
+		"pass": "mxgJG3vPG4MirJh",//授权码已经失效
 		//这里的密码不是邮箱的密码，是邮箱给的一个授权码
 
 		"host": "smtp.163.com",
