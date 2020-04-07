@@ -3,6 +3,7 @@ package util
 import (
 	"crypto/tls"
 	"fmt"
+	"github.com/spf13/viper"
 	"html/template"
 	"io/ioutil"
 	"myList/model"
@@ -24,15 +25,11 @@ func SendRegisterEmail(address string, body string) error {
 	//	"port": "587",
 	//}
 	mailConn := map[string]string{
-
-		"user": "a1337233082@163.com",
-
-		"pass": "mxgJG3vPG4MirJh",//授权码已经失效
+		"user": viper.GetString("system-email.addr"),
+		"pass": viper.GetString("system-email.pass"),//授权码已经失效
 		//这里的密码不是邮箱的密码，是邮箱给的一个授权码
-
-		"host": "smtp.163.com",
-
-		"port": "465",
+		"host": viper.GetString("system-email.host"),
+		"port": viper.GetString("system-email.port"),
 	}
 	port, _ := strconv.Atoi(mailConn["port"])
 
@@ -44,7 +41,6 @@ func SendRegisterEmail(address string, body string) error {
 	buf, err := ioutil.ReadFile(body) //此函数返回[]byte,而不是*FILE
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "File Error: %s\n", err)
-		// panic(err.Error())
 	}
 
 	m.SetBody("text/html", string(buf))
@@ -91,20 +87,17 @@ type UserInfo struct {
 func GenerateHTML(name string, uid string, mail string) {
 	U := UserInfo{name, uid, mail, GetTime(), GetDate()}
 	tmpl, _ := template.ParseFiles("registerTmpl.html") //读取模板
-	F, _ := os.Create("./register.html")//意外报错，原因不明
+	F, _ := os.Create("./register.html")//意外报错，原因是html文件和可执行文件没有在同一目录下
 	defer F.Close()
 
 	tmpl.Execute(F, U) //替换
 }
 
 func RegisterEmail(user model.User) {
-
 	address := user.Email
 	name := user.Name
 	GenerateHTML(name, address, address) //替换模板
-
 	err := SendRegisterEmail(address, "register.html")
-
 	if err != nil {
 		fmt.Printf("发送失败，你翻车了。%v\n", err)
 		return

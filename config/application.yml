@@ -8,3 +8,8 @@ datasource:
   username: root
   password: sqldb
   charset: utf8mb4
+system-email:
+  addr: a1337233082@163.com
+  pass: mxgJG3vPG4MirYh
+  host: smtp.163.com #邮件服务器
+  port: 465
