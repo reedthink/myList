@@ -6,7 +6,7 @@ RESTful的API，采用token进行用户认证
 数据库 ： mysql 8.0.19  
 配置文件存放位置： `./config/application.yml`
 
-## 查看API文档: http://114.116.239.137:8080/swagger/index.html
+## 查看API文档: ~~http://114.116.239.137:8080/swagger/index.html~~
 
 ## 如何启动: `go build && ./myList`
 
